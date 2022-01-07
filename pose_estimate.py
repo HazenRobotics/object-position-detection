@@ -47,7 +47,7 @@ for image in images:
         # Draw and display the corners
         cv.drawChessboardCorners(img, chessboardSize, corners2, ret)
         cv.imshow('img', img)
-        cv.waitKey(1000)
+        #cv.waitKey(1000)
 
 
 cv.destroyAllWindows()
@@ -67,43 +67,43 @@ print("tvecs: ",  tvecs)
 
 ############## UNDISTORTION #####################################################
 
-img = cv.imread('WIN_20220105_15_16_11_Pro.jpg')
-h,  w = img.shape[:2]
-newCameraMatrix, roi = cv.getOptimalNewCameraMatrix(cameraMatrix, dist, (w,h), 1, (w,h))
+# img = cv.imread('WIN_20220106_15_18_58_Pro.jpg')
+# h,  w = img.shape[:2]
+# newCameraMatrix, roi = cv.getOptimalNewCameraMatrix(cameraMatrix, dist, (w,h), 1, (w,h))
 
 
 
-# Undistort
-dst = cv.undistort(img, cameraMatrix, dist, None, newCameraMatrix)
+# # Undistort
+# dst = cv.undistort(img, cameraMatrix, dist, None, newCameraMatrix)
 
-# crop the image
-x, y, w, h = roi
-dst = dst[y:y+h, x:x+w]
-cv.imwrite('result1.jpg', dst)
-
-
-
-# Undistort with Remapping
-mapx, mapy = cv.initUndistortRectifyMap(cameraMatrix, dist, None, newCameraMatrix, (w,h), 5)
-dst = cv.remap(img, mapx, mapy, cv.INTER_LINEAR)
-
-# crop the image
-x, y, w, h = roi
-dst = dst[y:y+h, x:x+w]
-cv.imwrite('result2.jpg', dst)
+# # crop the image
+# x, y, w, h = roi
+# dst = dst[y:y+h, x:x+w]
+# cv.imwrite('result1.jpg', dst)
 
 
 
+# # Undistort with Remapping
+# mapx, mapy = cv.initUndistortRectifyMap(cameraMatrix, dist, None, newCameraMatrix, (w,h), 5)
+# dst = cv.remap(img, mapx, mapy, cv.INTER_LINEAR)
 
-# Reprojection Error
-mean_error = 0
+# # crop the image
+# x, y, w, h = roi
+# dst = dst[y:y+h, x:x+w]
+# cv.imwrite('result2.jpg', dst)
 
-for i in range(len(objpoints)):
-    imgpoints2, _ = cv.projectPoints(objpoints[i], rvecs[i], tvecs[i], cameraMatrix, dist)
-    error = cv.norm(imgpoints[i], imgpoints2, cv.NORM_L2)/len(imgpoints2)
-    mean_error += error
 
-print( "total error: {}".format(mean_error/len(objpoints)) )
+
+
+# # Reprojection Error
+# mean_error = 0
+
+# for i in range(len(objpoints)):
+#     imgpoints2, _ = cv.projectPoints(objpoints[i], rvecs[i], tvecs[i], cameraMatrix, dist)
+#     error = cv.norm(imgpoints[i], imgpoints2, cv.NORM_L2)/len(imgpoints2)
+#     mean_error += error
+
+# print( "total error: {}".format(mean_error/len(objpoints)) )
 
 
 def draw(img, corners, imgpts):
