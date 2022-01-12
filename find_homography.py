@@ -20,7 +20,7 @@ world_bottom_right = (13.5, -7, 1)
 
 #homography_matrix = cv.findHomography(src_pts, dst_pts)
 
-duck_image_pos = np.array([[635], [330], [1]])
+duck_image_pos = np.array([[640], [315], [1]])
 
 #calculated_duck_pos = np.matmul(homography_matrix[0], duck_image_pos)
 
@@ -98,7 +98,7 @@ criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 objp = np.zeros((9*6,3), np.float32)
 objp[:,:2] = np.mgrid[0:9,0:6].T.reshape(-1,2)
 
-image = "WIN_20220106_17_58_12_Pro.jpg"
+image = "WIN_20220111_14_45_25_Pro.jpg"
 img = cv.imread(image)
 gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
 ret, corners = cv.findChessboardCorners(gray, (9,6),None)
@@ -119,7 +119,7 @@ if ret == True:
 rotation_matrix = cv.Rodrigues(rvecs)
 rotation_matrix = rotation_matrix[0]
 
-Z_CONST = 0
+Z_CONST = 1
 
 temp_mat = inv(rotation_matrix) @ inv(cameraMatrix) @ duck_image_pos
 temp_mat2 = inv(rotation_matrix) @ tvecs
