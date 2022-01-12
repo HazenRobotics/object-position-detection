@@ -20,7 +20,7 @@ world_bottom_right = (13.5, -7, 1)
 
 #homography_matrix = cv.findHomography(src_pts, dst_pts)
 
-duck_image_pos = np.array([[640], [315], [1]])
+duck_image_pos = np.array([[330], [85], [1]])
 
 #calculated_duck_pos = np.matmul(homography_matrix[0], duck_image_pos)
 
@@ -31,7 +31,7 @@ duck_image_pos = np.array([[640], [315], [1]])
 ################ FIND CHESSBOARD CORNERS - OBJECT POINTS AND IMAGE POINTS #############################
 
 chessboardSize = (9,6)
-frameSize = (1280,720)
+frameSize = (640,480)
 
 
 
@@ -94,7 +94,7 @@ objp = np.zeros((9*6,3), np.float32)
 objp[:,:2] = np.mgrid[0:9,0:6].T.reshape(-1,2)
 objp = objp * size_of_chessboard_squares_mm
 
-image = "WIN_20220111_14_45_25_Pro.jpg"
+image = "WIN_20220111_21_37_44_Pro.jpg"
 img = cv.imread(image)
 gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
 ret, corners = cv.findChessboardCorners(gray, (9,6),None)

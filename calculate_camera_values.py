@@ -3,7 +3,7 @@ import numpy as np
 import glob
 
 chessboardSize = (9,6)
-frameSize = (1280,720)
+frameSize = (640,480)
 
 # termination criteria
 criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
@@ -42,7 +42,7 @@ for image in images:
         # Draw and display the corners
         cv.drawChessboardCorners(img, chessboardSize, corners2, ret)
         cv.imshow('img', img)
-        #cv.waitKey(0)
+        cv.waitKey(0)
 
 
 cv.destroyAllWindows()
@@ -54,7 +54,7 @@ cv.destroyAllWindows()
 
 ret, cameraMatrix, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, frameSize, None, None)
 
-image = "WIN_20220111_14_45_25_Pro.jpg"
+image = "WIN_20220111_21_37_44_Pro.jpg"
 img = cv.imread(image)
 gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
 ret, corners = cv.findChessboardCorners(gray, (9,6),None)
@@ -72,4 +72,3 @@ cv.destroyAllWindows()
 print("TRANSLATION_VECTOR: ", translation_vector)
 print("ROTATION_MATRIX: ", rotation_matrix)
 print("CAMERA_MATRIX: ", cameraMatrix)
-
